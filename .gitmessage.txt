@@ -1,0 +1,26 @@
+# Subject(ISSUE-ID) : Concise summary of what happened
+# No more than 50 chars. #### 50 chars here. #
+
+# Remember blank line between title and body
+
+# Body : More Detailed Explanation about what, why and How include JIRA issue id's judiciously in below format
+# * What is now different from before?
+# * What is the reason for change?
+# * Is there anything to watch out for anything particularly remarkable
+# Wrap a line in 72 chars. #
+
+# At the end: Include Co-authored-by for all contributors.
+# Include at least one empty line before it. Format:
+# Co-authored-by: name <user@users.noreply.github.com>
+#
+# How to Write a Git Commit Message:
+# https://www.conventionalcommits.org/en/v1.0.0/
+
+# Inspired from:
+# https://gist.github.com/lisawolderiksen/a7b99d94c92c6671181611be1641c733
+
+# Example: fix(123) : rm unused code
+# 1. Restructure the file to reveal the functionality by removing unnecessary code
+# 2. Improved Readability
+# 3. Optimized the lines of code
+# Co-authored-by: pavan pavan@email.com

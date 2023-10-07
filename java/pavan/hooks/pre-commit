@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Perform tasks that validates the guidelines
+# Use-Cases
+# 1. Enforcing Formatting and Standards
+# 2. Run linters
+# 3. Run static analysis & Unit Tests
+
+echo -e "\e[32mNo pre commit tasks available. Good to push\e[0m"
+
+exit 0
