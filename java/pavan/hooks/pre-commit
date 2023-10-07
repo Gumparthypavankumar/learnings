@@ -6,6 +6,6 @@
 # 2. Run linters
 # 3. Run static analysis & Unit Tests
 
-echo -e "\e[32mNo pre commit tasks available. Good to push\e[0m"
+echo -e "\e[32mNo pre commit tasks available. Good to commit\e[0m"
 
 exit 0
