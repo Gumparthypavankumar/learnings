@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.pavan</groupId>
@@ -29,35 +29,109 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <!-- Dependency Version begins -->
-        <version.apache-commons>1.10.0</version.apache-commons>
-        <version.apache-logging>1.2</version.apache-logging>
+        <version.dependency.apache-commons>1.10.0</version.dependency.apache-commons>
+        <version.dependency.apache-logging>1.2</version.dependency.apache-logging>
         <!-- Dependency Version end -->
 
+        <!-- Plugin version begins -->
+        <version.plugin.codehaus.exec-maven>3.1.0</version.plugin.codehaus.exec-maven>
+        <version.plugin.github-commit>6.0.0</version.plugin.github-commit>
+        <!-- Plugin version ends-->
+
+        <!-- Reporting plugin version begins -->
+        <version.reporting.maven-checkstyle>3.1.2</version.reporting.maven-checkstyle>
+        <!-- Reporting plugin version ends -->
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>${version.apache-commons}</version>
+            <version>${version.dependency.apache-commons}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>${version.apache-logging}</version>
+            <version>${version.dependency.apache-logging}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <!-- A plugin to allow execute system and java programs -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${version.plugin.codehaus.exec-maven}</version>
                 <configuration>
                     <mainClass>com.pavan.concurrency.ConcurrencyApplication</mainClass>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <!-- This plugin helps in building the properties extracted from .git directory which can be of later use for version tracking, identifying the commit which introduced a big etc. -->
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <version>${version.plugin.github-commit}</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-info</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dotGitDirectory>${project.basedir}/../../../.git</dotGitDirectory>
+                    <verbose>false</verbose>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties
+                    </generateGitPropertiesFilename>
+                    <commitIdGenerationMode>full</commitIdGenerationMode>
+                    <includeOnlyProperties>
+                        <includeOnlyProperty>git.commit.id.abbrev</includeOnlyProperty>
+                        <includeOnlyProperty>git.commit.id.flat</includeOnlyProperty>
+                        <includeOnlyProperty>git.commit.message.short</includeOnlyProperty>
+                        <includeOnlyProperty>git.commit.time</includeOnlyProperty>
+                    </includeOnlyProperties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- The plugin to check the styles and formatting used -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${version.reporting.maven-checkstyle}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.9.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <violationSeverity>info</violationSeverity>
+                    <failsOnError>true</failsOnError>
+                    <consoleOutput>false</consoleOutput>
+                    <configLocation>${project.basedir}/../google-checkstyle.xml</configLocation>
+                    <suppressionsLocation>${project.basedir}/../google-checkstyle-suppressions.xml
+                    </suppressionsLocation>
+                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+
+        </plugins>
+    </reporting>
 </project>

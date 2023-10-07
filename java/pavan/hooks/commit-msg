@@ -5,7 +5,9 @@ conventional_commit_regex="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|s
 
 # Get the commit message (the parameter we're given is just the path to the
 # temporary file which holds the message).
-commit_message=$(cat "$1")
+commit_message="$(cat "$1")"
+
+echo "Commit message identified as : $commit_message"
 
 # Check the message, if we match, all good baby.
 if [[ "$commit_message" =~ $conventional_commit_regex ]]; then
@@ -14,8 +16,6 @@ if [[ "$commit_message" =~ $conventional_commit_regex ]]; then
 fi
 
 # Uh-oh, this is not a conventional commit, show an example and link to the spec.
-echo "message : $conventional_commit_regex"
-echo "message : $commit_message"
 echo -e "\e[31mThe commit message does not meet the Conventional Commit standard\e[0m"
 echo "An example of a valid message is: "
 echo "  feat(login): add the 'remember me' button"
