@@ -30,6 +30,10 @@ public class SynchronizationProblem implements ConcurrencyExecutor {
     }
   }
 
+  public int getCount() {
+    return count;
+  }
+
   @Override
   public void execute() throws Exception {
     resultsWithInconsistency();

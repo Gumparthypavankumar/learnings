@@ -31,6 +31,7 @@
         <!-- Dependency Version begins -->
         <version.dependency.apache-commons>1.10.0</version.dependency.apache-commons>
         <version.dependency.apache-logging>1.2</version.dependency.apache-logging>
+        <version.dependency.junit>5.10.0</version.dependency.junit>
         <!-- Dependency Version end -->
 
         <!-- Plugin version begins -->
@@ -53,6 +54,13 @@
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>${version.dependency.apache-logging}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${version.dependency.junit}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

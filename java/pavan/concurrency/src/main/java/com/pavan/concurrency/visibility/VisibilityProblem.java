@@ -33,8 +33,9 @@ public class VisibilityProblem implements ConcurrencyExecutor {
   |_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
 */
   private static final Log logger = LogFactory.getLog(VisibilityProblem.class);
-  private static int count = 0;
+  public static int count = 0;
   private final ExecutorService executorService = Executors.newFixedThreadPool(5);
+
 
   @Override
   public void execute() throws Exception {

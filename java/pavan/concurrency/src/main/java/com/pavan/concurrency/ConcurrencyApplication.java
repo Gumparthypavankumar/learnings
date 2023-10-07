@@ -1,6 +1,7 @@
 package com.pavan.concurrency;
 
 
+import com.pavan.concurrency.visibility.CompoundAtomicOperations;
 import com.pavan.concurrency.visibility.SynchronizationProblem;
 import com.pavan.concurrency.visibility.VisibilityProblem;
 import org.apache.commons.logging.Log;
@@ -26,5 +27,6 @@ public final class ConcurrencyApplication {
   private static void day1() throws Exception {
     new VisibilityProblem().execute();
     new SynchronizationProblem().execute();
+    new CompoundAtomicOperations().execute();
   }
 }
