@@ -28,5 +28,6 @@ public final class ConcurrencyApplication {
     new VisibilityProblem().execute();
     new SynchronizationProblem().execute();
     new CompoundAtomicOperations().execute();
+    new ThreadLocalInJava().execute();
   }
 }
