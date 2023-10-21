@@ -8,9 +8,9 @@ import org.apache.commons.logging.LogFactory;
  * multiple layers that are involved in processing. one such example could be a web request where in
  * a user data is expected by multiple parties involved in processing to either identify or validate
  * the request source. One solution could be to maintain a global map that is exchanged in chain,
- * which could be further used to get the necessary data but like any temporary solution here with
- * this proposed solution we introduce complexity, performance, memory leaks and No Thread Safety
- * problems. There is a better way to this i.e ThreadLocal which is guaranteed to hold the
+ * which could be further used to get the necessary data but like any temporary solution this approach
+ * introduce complexity, performance, memory leaks and No Thread Safety problems.
+ * There is a better way to this i.e ThreadLocal which is guaranteed to hold the
  * information per thread with necessary precautions like: 1. ThreadLocal context have to be cleared
  * after processing using remove() method
  */
