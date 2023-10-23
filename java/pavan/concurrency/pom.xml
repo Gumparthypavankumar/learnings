@@ -31,11 +31,13 @@
         <!-- Dependency Version begins -->
         <version.dependency.apache-commons>1.10.0</version.dependency.apache-commons>
         <version.dependency.apache-logging>1.2</version.dependency.apache-logging>
+        <version.dependency.log4j>1.2.17</version.dependency.log4j>
         <version.dependency.junit>5.10.0</version.dependency.junit>
         <!-- Dependency Version end -->
 
         <!-- Plugin version begins -->
         <version.plugin.codehaus.exec-maven>3.1.0</version.plugin.codehaus.exec-maven>
+        <version.plugin.apache-maven.surefire>3.1.2</version.plugin.apache-maven.surefire>
         <version.plugin.github-commit>6.0.0</version.plugin.github-commit>
         <!-- Plugin version ends-->
 
@@ -55,6 +57,11 @@
             <artifactId>commons-logging</artifactId>
             <version>${version.dependency.apache-logging}</version>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${version.dependency.log4j}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -73,6 +80,17 @@
                 <version>${version.plugin.codehaus.exec-maven}</version>
                 <configuration>
                     <mainClass>com.pavan.concurrency.ConcurrencyApplication</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- A plugin to execute unit tests during test phase of build lifecycle -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${version.plugin.apache-maven.surefire}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
             </plugin>
 

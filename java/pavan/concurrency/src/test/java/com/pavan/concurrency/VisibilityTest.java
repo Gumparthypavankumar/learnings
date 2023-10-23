@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 class VisibilityTest {
 
   @Test
-  void testVisibility() throws Exception{
+  void testVisibility() throws Exception {
     final VisibilityProblem visibilityProblem = new VisibilityProblem();
     final SynchronizationProblem synchronizationProblem = new SynchronizationProblem();
     final CompoundAtomicOperations compoundAtomicOperations = new CompoundAtomicOperations();

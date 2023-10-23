@@ -57,8 +57,8 @@ public class VisibilityProblem implements ConcurrencyExecutor {
         count++;
       }
       Instant end = Instant.now();
-      logger.info("Processing " + currentThreadName + " ended in : " +
-                      Duration.between(start, end).toMillis() + " ms");
+      logger.info("Processing " + currentThreadName + " ended in : " + Duration.between(start, end)
+                                                                               .toMillis() + " ms");
     }
   }
 }

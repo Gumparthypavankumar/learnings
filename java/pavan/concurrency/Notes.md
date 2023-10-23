@@ -46,8 +46,9 @@ DrawBack of usual Thread creation strategy:
     * High
         * This is upto the individual who develops, since the CPU operates on time-scheduling mode if there are more
           threads than core count.
-          <b>NOTE:</b> Running high no. of threads lead to higher memory consumption, so use judiciously.
-You can get the available core count in java like following:
+          <b>NOTE:</b> Running high no. of threads lead to higher memory consumption, so use judiciously. You can get
+          the available core count in java like following:
+
 ```java
     class Task {
     static final int availableProcessors = Runtime.getRuntime().availableProcessors();
