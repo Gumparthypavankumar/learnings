@@ -33,21 +33,41 @@ public class ExecutorServiceImpl {
    */
   public static void main(String[] args) throws Exception {
     try {
-      logger.info("FixedThreadPool execution begins...");
-      fixedExecutorService.execute(new Task());
-      fixedExecutorService.execute(new Task());
-      Thread.sleep(1000);
-      logger.info("CachedThreadPool execution begins...");
-      cachedExecutorService.execute(new Task());
-      cachedExecutorService.execute(new Task());
-      Thread.sleep(1000);
-      logger.info("ScheduledThreadPool execution begins...");
-      scheduledExecutorService.schedule(new Task(), 10, TimeUnit.SECONDS);
-      scheduledExecutorService.scheduleAtFixedRate(new Task(), 10, 10, TimeUnit.SECONDS);
-      Thread.sleep(1000);
-      logger.info("SingleThreadedExecutor execution begins...");
-      singleThreadedExecutorService.execute(new Task());
-      singleThreadedExecutorService.execute(new Task());
+      fixedExecutorService.submit(() -> {
+        try {
+          ThreadContextHolder.setContext("fixedPool");
+          new Task().run();
+        } finally {
+          ThreadContextHolder.clearContext();
+        }
+      });
+      cachedExecutorService.execute(() -> {
+        try {
+          ThreadContextHolder.setContext("cachedPool");
+          new Task().run();
+        } finally {
+          ThreadContextHolder.clearContext();
+        }
+      });
+      Runnable executable = () -> {
+        try {
+          ThreadContextHolder.setContext("schedulePool");
+          new Task().run();
+        } finally {
+          ThreadContextHolder.clearContext();
+        }
+      };
+      scheduledExecutorService.schedule(executable, 10,
+                                        TimeUnit.SECONDS
+      );
+      singleThreadedExecutorService.execute(() -> {
+        try {
+          ThreadContextHolder.setContext("singlePool");
+          new Task().run();
+        } finally {
+          ThreadContextHolder.clearContext();
+        }
+      });
     } finally {
       fixedExecutorService.shutdown();
       cachedExecutorService.shutdown();
@@ -57,9 +77,11 @@ public class ExecutorServiceImpl {
   }
 
   static class Task implements Runnable {
+
     @Override
     public void run() {
-      logger.info("Execution begin on thread " + Thread.currentThread().getName());
+      logger.info("Execution begin on thread " + Thread.currentThread().getName() + " "
+                      + ThreadContextHolder.getContext());
       List<Integer> primes = new ArrayList<>();
       Instant startTime = Instant.now();
       for (int i = 2; i < 10000; i++) {
@@ -76,7 +98,27 @@ public class ExecutorServiceImpl {
       }
       Instant endTime = Instant.now();
       logger.info("Primes between 1 to 100 are " + primes.size() + " executed in " + Duration
-          .between(endTime, startTime).toNanos() + "ns");
+          .between(endTime, startTime).toMillis() + "ms");
     }
+  }
+
+  static class ThreadContextHolder {
+    private static final ThreadLocal<String> coRelationId = new ThreadLocal<>();
+
+    private ThreadContextHolder() {
+    }
+
+    public static String getContext() {
+      return coRelationId.get();
+    }
+
+    public static void setContext(String userName) {
+      coRelationId.set(userName);
+    }
+
+    public static void clearContext() {
+      coRelationId.remove();
+    }
+
   }
 }
