@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos</title>
+    <link rel="stylesheet" href="./index.css"/>
+    <link rel="icon" type="image/png" href="./favicon.png"/>
+</head>
+<body>
+    <main>
+        <h1 align="center">Todos</h1>
+        <form id="form" class="form">
+            <section class="field">
+                <label for="name">Name:</label>
+                <input type="text" placeholder="Enter the title here..." id="name" class="input" required/>
+            </section>
+            <section class="field">
+                <label for="description">Description:</label>
+                <input type="text" placeholder="Enter the description here..." id="description" class="input" required/>
+            </section>
+            <button type="submit" class="button">Submit</button>
+        </form>
+
+        <hr/>
+
+        <section id="display"></section>
+    </main>
+</body>
+<script lang="js" src="./index.js"></script>
+</html>
