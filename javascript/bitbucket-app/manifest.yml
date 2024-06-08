@@ -1,0 +1,19 @@
+permissions:
+  scopes:
+    - read:pullrequest:bitbucket
+    - read:repository:bitbucket
+modules:
+  bitbucket:mergeCheck:
+    - key: bitbucket-app-merge-check
+      function: main
+      name: bitbucket-app
+      description: A Bitbucket merge check
+      triggers:
+        - on-code-pushed
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/9f1d707f-196a-4300-96d9-f42268ccec68
+  runtime:
+    name: nodejs18.x
