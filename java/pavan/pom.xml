@@ -10,6 +10,7 @@
     <modules>
         <module>concurrency</module>
         <module>i8n</module>
+        <module>annotationprocessing</module>
     </modules>
     <packaging>pom</packaging>
 

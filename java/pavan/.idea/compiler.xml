@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <excludeFromCompile>
       <directory url="file://$PROJECT_DIR$/i8n/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/annotationprocessing/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
@@ -11,6 +12,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="i8n" />
         <module name="concurrency" />
+        <module name="annotationprocessing" />
       </profile>
     </annotationProcessing>
   </component>
