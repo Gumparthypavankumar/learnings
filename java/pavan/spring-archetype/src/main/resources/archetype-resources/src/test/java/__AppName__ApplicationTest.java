@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootTest
-class ${projectName}ApplicationTest {
+class ${AppName}ApplicationTest {
 
   @Test
   void contextLoads(ApplicationContext context) {

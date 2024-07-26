@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-public class ${projectName}Application {
+public class ${AppName}Application {
   public static void main(String[] args) {
-    SpringApplication.run(${projectName}Application.class, args);
+    SpringApplication.run(${AppName}Application.class, args);
   }
 }
