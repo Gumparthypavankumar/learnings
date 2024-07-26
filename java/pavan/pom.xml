@@ -11,6 +11,7 @@
         <module>concurrency</module>
         <module>i8n</module>
         <module>annotationprocessing</module>
+        <module>spring-archetype</module>
     </modules>
     <packaging>pom</packaging>
 

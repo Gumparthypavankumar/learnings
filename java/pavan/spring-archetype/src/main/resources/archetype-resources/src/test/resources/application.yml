@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ${projectName.toUpperCase()}
+  datasource:
+    url: jdbc:h2:mem:${projectName.toLowerCase()}
+    username: sa
+    password: password
+
+server:
+  port: 0

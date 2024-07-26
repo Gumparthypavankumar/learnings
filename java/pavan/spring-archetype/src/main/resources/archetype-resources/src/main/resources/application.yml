@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ${projectName.toUpperCase()}
+  datasource:
+    url: jdbc:mysql://localhost:3306/${projectName.toLowerCase()}
+    username: root
+    password: root
+
+logging:
+  level:
+    root: INFO
