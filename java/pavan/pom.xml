@@ -12,6 +12,7 @@
         <module>i8n</module>
         <module>annotationprocessing</module>
         <module>spring-archetype</module>
+        <module>spring-web-cli</module>
     </modules>
     <packaging>pom</packaging>
 
