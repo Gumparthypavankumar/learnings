@@ -1,0 +1,6 @@
+*.sh
+.terraform
+dev.tfvars
+test.tfvars
+stage.tfvars
+prod.tfvars
