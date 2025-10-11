@@ -1,0 +1,12 @@
+schema.sql
+objects/bronze/init.sql
+
+objects/bronze/crm/src_crm_cust_info.sql
+objects/bronze/crm/src_crm_prd_info.sql
+objects/bronze/crm/src_crm_sales_details.sql
+
+objects/bronze/erp/src_erp_cust_az12.sql
+objects/bronze/erp/src_erp_loc_a101.sql
+objects/bronze/erp/src_erp_px_cat_g1v2.sql
+
+static/bronze/load_data.sql
