@@ -1,4 +1,6 @@
 schema.sql
+
+# Bronze Layer Begins
 objects/bronze/init.sql
 
 objects/bronze/crm/src_crm_cust_info.sql
@@ -10,3 +12,14 @@ objects/bronze/erp/src_erp_loc_a101.sql
 objects/bronze/erp/src_erp_px_cat_g1v2.sql
 
 static/bronze/load_data.sql
+
+# Silver Layer Begins
+objects/silver/init.sql
+
+objects/silver/crm/crm_cust_info.sql
+objects/silver/crm/crm_prd_info.sql
+objects/silver/crm/crm_sales_details.sql
+
+objects/silver/erp/erp_cust_az12.sql
+objects/silver/erp/erp_loc_a101.sql
+objects/silver/erp/erp_px_cat_g1v2.sql
