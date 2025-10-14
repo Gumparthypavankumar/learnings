@@ -17,8 +17,6 @@ Notes:
 */
 
 -- BEGIN OF BATCH
-SET @original_sql_mode= @@sql_mode;
-SET SESSION sql_mode = '';
 
 SET @batch_time_start = NOW();
 SELECT "============================================" AS message;
@@ -33,7 +31,10 @@ SELECT ">> Inserting data into table: src_crm_cust_info" AS message;
 LOAD DATA INFILE '/var/lib/mysql-files/source_crm/cust_info.csv' INTO TABLE `src_crm_cust_info`
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
-IGNORE 1 LINES;
+IGNORE 1 LINES
+(@id, `key`, `firstname`, `lastname`, `marital_status`, `gender`, @temp_date) -- Map date field to a variable
+SET id = IF(@id = '', 0, @id),
+    created_date = IF(@temp_date = '' OR @temp_date = '0000-00-00', NULL, @temp_date);
 
 SET @end_time = NOW();
 SELECT CONCAT("Load Duration for src_crm_cust_info is ", TIMESTAMPDIFF(SECOND, @start_time, @end_time), " seconds") AS message;
@@ -61,7 +62,11 @@ SELECT ">> Inserting data into table: src_crm_sales_details" AS message;
 LOAD DATA INFILE '/var/lib/mysql-files/source_crm/sales_details.csv' INTO TABLE `src_crm_sales_details`
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
-IGNORE 1 LINES;
+IGNORE 1 LINES
+(ord_num, prd_key, cust_id, order_dt, ship_dt, due_dt, @sales, quantity, @price)
+SET sales = IF(@sales = '', 0, @sales),
+    price = IF(@price = '', 0, @price)
+;
 
 SET @end_time = NOW();
 SELECT CONCAT("Load Duration for src_crm_sales_details is ", TIMESTAMPDIFF(SECOND, @start_time, @end_time), " seconds") AS message;
@@ -75,7 +80,10 @@ SELECT ">> Inserting data into table: src_erp_cust_az12" AS message;
 LOAD DATA INFILE '/var/lib/mysql-files/source_erp/CUST_AZ12.csv' INTO TABLE `src_erp_cust_az12`
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
-IGNORE 1 LINES;
+IGNORE 1 LINES
+(id, birth_date, @gender)
+SET gender = IF(@gender = '', '', @gender)
+;
 
 SET @end_time = NOW();
 SELECT CONCAT("Load Duration for src_erp_cust_az12 is ", TIMESTAMPDIFF(SECOND, @start_time, @end_time), " seconds") AS message;
@@ -113,5 +121,3 @@ SET @batch_time_end = NOW();
 SELECT "============================================" AS message;
 SELECT CONCAT("Bronze Loading Completed in: ", TIMESTAMPDIFF(SECOND, @batch_time_start, @batch_time_end), ' seconds') AS message;
 SELECT "============================================" AS message;
-
-SET SESSION sql_mode = @original_sql_mode;

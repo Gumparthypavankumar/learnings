@@ -44,5 +44,5 @@ FROM (
         *,
         row_number() over(partition by id order by created_date desc) as recent
     FROM bronze.src_crm_cust_info
-    WHERE id IS NOT NULL and id > 0
+    WHERE id IS NOT NULL
 ) src WHERE recent = 1;
