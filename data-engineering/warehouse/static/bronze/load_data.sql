@@ -33,7 +33,7 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
 (@id, `key`, `firstname`, `lastname`, `marital_status`, `gender`, @temp_date) -- Map date field to a variable
-SET id = IF(@id = '', 0, @id),
+SET id = IF(@id = '', NULL, @id),
     created_date = IF(@temp_date = '' OR @temp_date = '0000-00-00', NULL, @temp_date);
 
 SET @end_time = NOW();

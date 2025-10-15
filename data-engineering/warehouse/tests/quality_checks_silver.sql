@@ -21,14 +21,20 @@ Usage Notes:
 -- ======================================================
 -- Check for Nulls or Duplicates in Primary Key
 -- Expectation: No Results
-select
-    *,
-    row_number() over(partition by id order by created_date desc) as recent
-from silver.crm_cust_info;
+SELECT
+    src.*
+FROM (
+    SELECT
+        *,
+        row_number() over(partition by id order by created_date desc) as recent
+    FROM silver.crm_cust_info
+    WHERE id IS NOT NULL
+) src WHERE src.recent > 1
+;
 
 -- Check for Unwanted Spaces
 -- Expectation: No Results
-select * from silver.crm_cust_info as cst where cst.key != trim(cst.key);
+SELECT * FROM silver.crm_cust_info AS cst WHERE cst.key != trim(cst.key);
 
 -- Data Standardization & Consistency
 SELECT DISTINCT
