@@ -68,9 +68,10 @@ LOAD DATA INFILE '/var/lib/mysql-files/source_crm/sales_details.csv' INTO TABLE 
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
 IGNORE 1 LINES
-(ord_num, prd_key, cust_id, order_dt, ship_dt, due_dt, @sales, quantity, @price)
-SET sales = IF(@sales = '', 0, @sales),
-    price = IF(@price = '', 0, @price)
+(ord_num, prd_key, cust_id, order_dt, ship_dt, due_dt, @sales, @quantity, @price)
+SET sales = IF(@sales = '', NULL, @sales),
+    quantity = IF(@quantity = '', NULL, @quantity),
+    price = IF(@price = '', NULL, @price)
 ;
 
 SET @end_time = NOW();

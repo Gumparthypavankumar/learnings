@@ -98,3 +98,45 @@ An Example:
 In this example as you see the end_date conflicts with the next start_date, ideally this means the data is not well formed / it is setup basis to some business context,
 any such case you will analyse and formulate the data that is appropriate. For the sake of this example we will simply consider the end_date of current is start_date - 1 of preceding
 */
+
+-- ======================================================
+-- Checking `silver.crm_sales_details`
+-- ======================================================
+-- Check for Invalid Dates
+-- Expectation: No Results
+SELECT
+    NULLIF(sls.order_dt, 0)
+FROM silver.crm_sales_details as sls
+WHERE sls.order_dt <= 0
+      OR length(sls.order_dt) != 8
+      OR sls.order_dt > 20500101
+      OR sls.order_dt < 19000101;
+
+-- Check for Invalid Date Orders (Order Date > Shipping / Due Dates)
+-- Expectation: No Results
+
+SELECT
+    sls.order_dt,
+    sls.ship_dt,
+    sls.due_dt
+FROM
+    silver.crm_sales_details as sls
+WHERE sls.order_dt > sls.ship_dt
+      OR sls.order_dt > sls.due_dt;
+
+-- Check Data Consistency: Sales = Quantity * Price
+-- Expectations: No Results
+
+SELECT
+    sls.sales,
+    sls.quantity,
+    sls.price
+FROM silver.crm_sales_details as sls
+WHERE sls.sales != (sls.quantity * sls.price)
+      OR sls.sales IS NULL
+      OR sls.price IS NULL
+      OR sls.quantity IS NULL
+      OR sls.price <= 0
+      OR sls.quantity <= 0
+      OR sls.sales <= 0
+;
