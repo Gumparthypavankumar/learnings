@@ -46,3 +46,30 @@ FROM (
     FROM bronze.src_crm_cust_info
     WHERE id IS NOT NULL
 ) src WHERE recent = 1;
+
+
+TRUNCATE `crm_prd_info`;
+
+INSERT INTO `crm_prd_info` (
+    `id`, `key`, `category_id`,
+    `product_key`, `nm`, `cost`,
+    `line`, `start_date`, `end_date`
+)
+SELECT
+    prd.id,
+    prd.key,
+    replace(substr(prd.key, 1, 5), '-', '_') as category_id,
+    substr(prd.key, 7, length(prd.key)) as product_key,
+    prd.nm,
+    IFNULL(prd.cost, 0) as cost,
+    CASE UPPER(TRIM(prd.line))
+         WHEN 'M' THEN 'Mountain'
+         WHEN 'R' THEN 'Road'
+         WHEN 'S' THEN 'Other Sales'
+         WHEN 'T' THEN 'Touring'
+         ELSE 'n/a'
+    END as line,
+    prd.start_date,
+    LAG(DATE_SUB(start_date, INTERVAL 1 DAY)) OVER(partition by prd.key order by id desc) as end_date
+FROM
+    bronze.src_crm_prd_info as prd;

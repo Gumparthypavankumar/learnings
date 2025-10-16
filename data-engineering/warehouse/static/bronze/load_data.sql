@@ -48,7 +48,12 @@ SELECT ">> Inserting data into table: src_crm_prd_info" AS message;
 LOAD DATA INFILE '/var/lib/mysql-files/source_crm/prd_info.csv' INTO TABLE `src_crm_prd_info`
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
-IGNORE 1 LINES;
+IGNORE 1 LINES
+(id, `key`, nm, @cost, @line, start_date, @end_date)
+SET cost = IF(@cost = '' OR @cost = NULL, NULL, @cost),
+    line = IF(@line = '', NULL, @line),
+    end_date = IF(@end_date = '', NULL, @end_date)
+;
 
 SET @end_time = NOW();
 SELECT CONCAT("Load Duration for src_crm_prd_info is ", TIMESTAMPDIFF(SECOND, @start_time, @end_time), " seconds") AS message;
