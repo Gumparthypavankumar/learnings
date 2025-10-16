@@ -113,3 +113,22 @@ SELECT
 FROM
     bronze.src_crm_sales_details as sls
 ;
+
+TRUNCATE `erp_cust_az12`;
+
+INSERT INTO `erp_cust_az12` (
+    `id`, `birth_date`, `gender`
+)
+SELECT
+    CASE WHEN cst.id LIKE 'NAS%' THEN substr(cst.id, 4, length(cst.id))
+         ELSE cst.id
+    END as cst_id,
+    CASE WHEN cst.birth_date > current_date() THEN NULL
+         ELSE cst.birth_date
+    END as birth_date,
+    CASE WHEN UPPER(TRIM(cst.gender)) IN ('M', 'Male') THEN 'Male'
+         WHEN UPPER(TRIM(cst.gender)) IN ('F', 'Female') THEN 'Female'
+         ELSE 'n/a'
+    END as gender
+FROM
+    bronze.src_erp_cust_az12 as cst;

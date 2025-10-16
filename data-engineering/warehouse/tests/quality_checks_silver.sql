@@ -140,3 +140,34 @@ WHERE sls.sales != (sls.quantity * sls.price)
       OR sls.quantity <= 0
       OR sls.sales <= 0
 ;
+
+-- ======================================================
+-- Checking `silver.erp_cust_az12`
+-- ======================================================
+-- Check customer ids not existing in crm_cust_info
+-- Expectation: No Results
+SELECT
+    cst.id,
+    CASE WHEN substr(cst.id, 1, 3) LIKE 'NAS%' THEN substr(cst.id, 4, length(cst.id))
+         ELSE cst.id
+    END as cst_id,
+    cst.birth_date,
+    cst.gender
+FROM
+    silver.erp_cust_az12 as cst WHERE CASE WHEN substr(cst.id, 1, 3) LIKE 'NAS%' THEN substr(cst.id, 4, length(cst.id))
+         ELSE cst.id END NOT IN (SELECT c.key FROM silver.crm_cust_info c);
+
+-- Identify Out-of-Range Dates
+-- Expectation: No Results
+
+SELECT
+    cst.birth_date
+FROM
+    silver.erp_cust_az12 as cst
+WHERE cst.birth_date > current_date();
+
+-- Data Standardization & Consistency
+SELECT DISTINCT
+    cst.gender
+FROM
+    silver.erp_cust_az12 as cst;
