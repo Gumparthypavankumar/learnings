@@ -24,7 +24,17 @@ DELIMITER $$
 
 CREATE PROCEDURE load_silver()
 BEGIN
+    DECLARE state, error_msg VARCHAR(255);
     DECLARE batch_start_time, batch_end_time, start_time, end_time TIMESTAMP;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        GET DIAGNOSTICS CONDITION 1
+            @state = RETURNED_SQLSTATE,
+            @error_msg = MESSAGE_TEXT;
+        SELECT '============================================';
+        SELECT CONCAT("Error Occurred with state: ", @state, " and message: ", @error_msg);
+        SELECT '============================================';
+    END ;
     SET @batch_start_time = now();
     SELECT '============================================';
     SELECT 'Silver Batch Loading Begin';
