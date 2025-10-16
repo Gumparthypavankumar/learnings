@@ -171,3 +171,30 @@ SELECT DISTINCT
     cst.gender
 FROM
     silver.erp_cust_az12 as cst;
+
+-- ======================================================
+-- Checking `silver.erp_loc_a101`
+-- ======================================================
+-- Data Standardization & Consistency
+SELECT DISTINCT
+    loc.country
+FROM silver.erp_loc_a101 as loc;
+
+-- ======================================================
+-- Checking `silver.erp_px_cat_g1v2`
+-- ======================================================
+-- Check for Unwanted Spaces
+-- Expectation: No Results
+SELECT
+    *
+FROM silver.erp_px_cat_g1v2
+WHERE
+    id != TRIM(id)
+    OR category != TRIM(category)
+    OR sub_category != TRIM(sub_category)
+;
+
+-- Data Standardization & Consistency
+SELECT DISTINCT
+    maintenance
+FROM bronze.src_erp_px_cat_g1v2;
