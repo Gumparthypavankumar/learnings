@@ -197,4 +197,4 @@ WHERE
 -- Data Standardization & Consistency
 SELECT DISTINCT
     maintenance
-FROM bronze.src_erp_px_cat_g1v2;
+FROM silver.erp_px_cat_g1v2;
