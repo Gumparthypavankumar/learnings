@@ -25,3 +25,8 @@ objects/silver/erp/erp_loc_a101.sql
 objects/silver/erp/erp_px_cat_g1v2.sql
 
 static/silver/load_data.sql
+
+# Gold Layer Begins
+objects/gold/init.sql
+
+static/gold/data_modeling.sql
