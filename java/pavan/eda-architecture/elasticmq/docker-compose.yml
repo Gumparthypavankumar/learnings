@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+    sns:
+        image: s12v/sns
+        ports:
+            - "9911:9911"
+        volumes:
+            - ./db.json:/etc/sns/db.json
+        depends_on:
+            - sqs
+    sqs:
+        image: softwaremill/elasticmq-native
+        ports:
+            - "9324:9324/tcp"
+            - "9325:9325/tcp"
+        volumes:
+            - ./elasticmq.conf:/opt/elasticmq.conf
+            - ./logback.xml:/opt/logback.xml
+            - /tmp/sqs/:/data
+
+# aws --profile local-profile sns publish --endpoint-url http://localhost:9911 --topicarn "arn:aws:sns:us-east-1:000000000000:topic-sns-test" --subject "Test" --message "{Hello}"
+# aws --endpoint-url http://localhost:9324 sqs receive-message --queue-url http://localhost:9324/queue/queue-stnd-test --wait-time-seconds 10 --profile local-profile

@@ -1,0 +1,19 @@
+{
+    "version": 1,
+    "timestamp": 17747757433,
+    "subscriptions": [
+        {
+            "arn": "dff32bcc-192b-408d-96c0-009098d1dfd5",
+            "topicArn": "arn:aws:sns:us-east-1:000000000000:topic-sns-test",
+            "endpoint": "aws-sqs://queue-stnd-test?amazonSQSEndpoint=http://sqs:9324&accessKey=&secretKey=",
+            "owner": "",
+            "protocol": "sqs"
+        }
+    ],
+    "topics": [
+        {
+            "arn": "arn:aws:sns:us-east-1:000000000000:topic-sns-test",
+            "name": "topic-sns-test"
+        }
+    ]
+}

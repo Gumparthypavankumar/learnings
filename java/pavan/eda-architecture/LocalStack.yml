@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+    local.awsevent.stack:
+        container_name: "${LOCALSTACK_CONTAINER_NAME:-local.awsevent.stack}"
+        image: localstack/localstack:4.13
+        restart: always
+        networks:
+            - aws_vpc
+        ports:
+            - "4566:4566" # Gateway
+            - "4510-4559:4510-4559" # Services port range
+        environment:
+            - DEBUG=${DEBUG:-1}
+            - SERVICES=sns,sqs
+            - AWS_DEFAULT_REGION=us-east-1
+            - EDGE_PORT=4566
+            - LOCALSTACK_HOST=local.awsevent.stack
+            - LS_LOG=debug
+            - PERSISTENCE=1
+            - SNAPSHOT_SAVE_STRATEGY=SCHEDULED
+            - SNAPSHOT_LOAD_STRATEGY=ON_STARTUP
+            - SNAPSHOT_FLUSH_INTERVAL=60
+            - SQS_ENDPOINT_STRATEGY=dynamic
+        volumes:
+            - "/tmp/localstack:/var/lib/localstack"
+            - "/var/run/docker.sock:/var/run/docker.sock"
+    awscli:
+        container_name: awscli
+        image: garland/aws-cli-docker
+        networks:
+            - aws_vpc
+        depends_on:
+            - local.awsevent.stack
+        environment:
+            - AWS_DEFAULT_REGION=us-east-1
+        command:
+            - /bin/sh
+            - -c
+            - |
+                sleep 5
+                aws configure set aws_access_key_id "local" --profile local-profile
+                aws configure set aws_secret_access_key "local" --profile local-profile
+                aws configure set region "us-east-1" --profile local-profile
+                aws configure set output "table" --profile local-profile
+                aws --endpoint-url=http://local.awsevent.stack:4566 --region us-east-1 --profile local-profile sns create-topic --name topic-sns-test --output table | cat
+                aws --endpoint-url=http://local.awsevent.stack:4566 --region us-east-1 --profile local-profile sqs create-queue  --queue-name queue-stnd-test --output table | cat
+                aws --endpoint-url=http://local.awsevent.stack:4566 --region us-east-1 --profile local-profile sns subscribe --topic-arn arn:aws:sns:us-east-1:000000000000:topic-sns-test --protocol sqs --notification-endpoint arn:aws:sqs:us-east-1:000000000000:queue-stnd-test --output table | cat
+networks:
+    aws_vpc:
+        driver: bridge
