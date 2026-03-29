@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+    gateway:
+        container_name: api_gateway
+        image: express-gateway:latest
+        ports:
+            - "9080:9080" # Gateway Server
+            - "9876:9876" # Admin Server
+        environment:
+            - LOG_LEVEL=debug
+        volumes:
+            - "./config/gateway.config.yml:/var/lib/eg/gateway.config.yml"
+            - "./config/system.config.yml:/var/lib/eg/system.config.yml"
+            - "./config/models:/var/lib/eg/models"
+            - "/tmp/express-gateway:/var/lib/eg"

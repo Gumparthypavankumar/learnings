@@ -1,0 +1,43 @@
+http:
+    port: 9080
+    hostname: 0.0.0.0
+
+admin:
+    port: 9876
+    host: 0.0.0.0
+
+serviceEndpoints:
+    httpbin:
+        url: 'https://httpbin.org'
+apiEndpoints:
+    httpbin:
+        host: httpbin.org
+    health:
+        paths:
+            - /health
+policies:
+    - log
+    - request-transformer
+    - terminate
+    - proxy
+pipelines:
+    health:
+        apiEndpoints:
+            - health
+        policies:
+            -   terminate:
+                    -   action:
+                            statusCode: 200
+                            message: Healthy
+    default:
+        apiEndpoints:
+            - httpbin
+        policies:
+            -   request-transformer:
+                    -   action:
+                            headers:
+                                add:
+                                    X-Correlation-Id: egContext.requestID
+            -   proxy:
+                    -   action:
+                            serviceEndpoint: httpbin
