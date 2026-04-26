@@ -4,3 +4,7 @@ target
 
 ### Mac OS ###
 .DS_Store
+
+*.tar
+*.tar.*
+*.gz

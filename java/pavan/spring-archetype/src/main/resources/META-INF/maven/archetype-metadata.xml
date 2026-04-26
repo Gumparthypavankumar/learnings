@@ -3,7 +3,7 @@
     <requiredProperties>
         <requiredProperty key="projectName"/>
         <requiredProperty key="spring-version">
-            <defaultValue>3.3.2</defaultValue>
+            <defaultValue>3.4.1</defaultValue>
         </requiredProperty>
         <requiredProperty key="dev-property-file-name">
             <defaultValue>dev</defaultValue>

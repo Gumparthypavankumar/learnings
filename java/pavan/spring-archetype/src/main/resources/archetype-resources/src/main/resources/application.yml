@@ -1,14 +1,16 @@
 server:
-  port: 8080
+    port: 8080
 
 spring:
-  application:
-    name: ${projectName.toUpperCase()}
-  datasource:
-    url: jdbc:mysql://localhost:3306/${projectName.toLowerCase()}
-    username: root
-    password: root
+    application:
+        name: ${projectName.toUpperCase()}
+    jpa:
+        open-in-view: false
+    datasource:
+        url: jdbc:mysql://localhost:3306/${projectName.toLowerCase()}
+        username: ${SPRING_DATASOURCE_USERNAME:root}
+        password: ${SPRING_DATASOURCE_PASSWORD:12345678}
 
 logging:
-  level:
-    root: INFO
+    level:
+        root: INFO
