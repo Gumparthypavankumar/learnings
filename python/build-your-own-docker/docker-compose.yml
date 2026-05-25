@@ -1,0 +1,15 @@
+version: '3.0'
+
+services:
+  docker-from-scratch:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docker-from-scratch
+    privileged: true
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./:/workspace
+    command:
+      - bash
