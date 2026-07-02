@@ -8,7 +8,6 @@
 
 import logging
 import os
-import time
 import traceback
 import uuid
 import sys
@@ -36,6 +35,10 @@ def create_container_root(image_name, container_id, *subdir_names):
     try:
         os.makedirs(container_root)
         with tarfile.open(image_path) as t:
+            """
+                tarfile.CHRTYPE - Character Devices. types of /dev/null, /dev/random etc
+                tarfile.BLKTYPE - Block Devices. types of /dev/sda
+            """
             members = [m for m in t.getmembers() if m.type not in (tarfile.CHRTYPE, tarfile.BLKTYPE)]
             t.extractall(container_root, members=members)
     except OSError:

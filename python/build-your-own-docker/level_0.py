@@ -26,7 +26,7 @@ def main():
     try:
         log.info(f"Parent Process ID: {os.getpid()}")
         fork_pid = os.fork()
-        if fork_pid == 0:
+        if fork_pid == 0: # 0 indicates child process
             try:
                 os.execv("/bin/echo", ["echo", "Hello Docker!"])
             except Exception:
