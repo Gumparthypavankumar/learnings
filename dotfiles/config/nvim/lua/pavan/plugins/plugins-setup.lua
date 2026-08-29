@@ -1,12 +1,13 @@
 return {
-  -- colorscheme
-  { "bluz71/vim-nightfly-guicolors" },
+	-- colorscheme
+	{ "bluz71/vim-nightfly-guicolors" },
+	-- { "nickkadutskyi/jb.nvim" },
 
-  -- navigation
-  { "christoomey/vim-tmux-navigator" },
-  { "szw/vim-maximizer" },
+	-- navigation
+	{ "christoomey/vim-tmux-navigator" },
+	{ "szw/vim-maximizer" },
 
-  -- editing
-  { "tpope/vim-surround" },
-  { "vim-scripts/ReplaceWithRegister" },
+	-- editing
+	{ "tpope/vim-surround" },
+	{ "vim-scripts/ReplaceWithRegister" },
 }

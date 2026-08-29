@@ -23,7 +23,20 @@ return {
       extensions = {
         rooter = {
           enable = true,
-          patterns = { ".git", "Makefile", "package.json", "build.gradle", "pom.xml", "Cargo.toml" },
+          patterns = {
+            ".git",
+            "Makefile",
+            "package.json",
+            "Cargo.toml",
+            "pom.xml",
+            "build.gradle",
+            "go.mod",
+            "pyproject.toml",
+            "setup.py",
+            "requirements.txt",
+            ".project",
+            "tsconfig.json",
+          },
         },
       },
     })

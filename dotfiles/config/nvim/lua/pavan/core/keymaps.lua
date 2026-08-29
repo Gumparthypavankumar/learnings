@@ -24,6 +24,10 @@ keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" 
 keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+vim.keymap.set("n", "gsv", function()
+	vim.cmd("vsplit")
+	vim.lsp.buf.definition()
+end, { noremap = true, silent = true })
 
 -- plugin keymaps
 
@@ -39,3 +43,7 @@ keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>")
 keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>")
 keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+
+-- Git
+keymap.set("n", "<leader>gp", ":Gitsigns preview_hunk<CR>", {})
+keymap.set("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", {})

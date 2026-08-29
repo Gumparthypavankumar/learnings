@@ -11,5 +11,5 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { import = "pavan.plugins" },
-  { import = "pavan.plugins.lsp" },
+  { import = "pavan.plugins.lsp" } 
 })
